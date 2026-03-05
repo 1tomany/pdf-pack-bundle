@@ -9,8 +9,7 @@ $configurator = static function (DefinitionConfigurator $configurator): void {
     $configurator
         ->rootNode()
             ->children()
-                ->enumNode('client')
-                ->values(['mock', 'poppler'])
+                ->stringNode('client')
                 ->defaultValue('poppler')
             ->end()
             ->arrayNode('poppler_client')
