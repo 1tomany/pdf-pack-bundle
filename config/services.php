@@ -18,24 +18,24 @@ return static function (ContainerConfigurator $container): void {
     $container
         ->services()
             // Factories
-            ->set('1tomany.pdfpack.factory.client', ClientFactory::class)
-                ->arg('$container', tagged_locator('1tomany.pdfpack.action.extract', 'key'))
+            ->set(ClientFactory::class)
+                ->arg('$container', tagged_locator('1tomany.pdfpack.client', 'key'))
 
             // Actions
-            ->alias(ExtractActionInterface::class, service('1tomany.pdfpack.action.extract'))
-            ->set('1tomany.pdfpack.action.extract', ExtractAction::class)
-                ->arg('$client', service('1tomany.pdfpack.client.interface'))
-            ->alias(ReadActionInterface::class, service('1tomany.pdfpack.action.read'))
-            ->set('1tomany.pdfpack.action.read', ReadAction::class)
-                ->arg('$clientFactory', service('1tomany.pdfpack.client.interface'))
+            ->set(ExtractAction::class)
+                ->arg('$client', service(ClientInterface::class))
+                ->alias(ExtractActionInterface::class, service(ExtractAction::class))
+            ->set(ReadAction::class)
+                ->arg('$client', service(ClientInterface::class))
+                ->alias(ReadActionInterface::class, service(ReadAction::class))
 
             // Clients
-            ->set('1tomany.pdfpack.client.interface', ClientInterface::class)
-                ->factory([service('1tomany.pdfpack.factory.client'), 'create'])
+            ->set(ClientInterface::class)
+                ->factory([service(ClientFactory::class), 'create'])
                 ->arg('$id', 'poppler')
-            ->set('1tomany.pdfpack.client.mock', MockClient::class)
+            ->set(MockClient::class)
                 ->tag('1tomany.pdfpack.client', ['key' => 'mock'])
-            ->set('1tomany.pdfpack.client.poppler', PopplerClient::class)
+            ->set(PopplerClient::class)
                 ->tag('1tomany.pdfpack.client', ['key' => 'poppler'])
     ;
 };
