@@ -67,7 +67,7 @@ If you wish to avoid interacting with an external process in your test environme
 ```yaml
 when@test:
     onetomany_pdfpack:
-        client: "mock"
+        client: 'mock'
 ```
 
 Without changing _any_ other code, Symfony will automatically inject the `MockClient` instead of the default `PopplerClient` for your tests.
@@ -102,7 +102,7 @@ class MagickClient implements ClientInterface
 
 ```yaml
 onetomany_pdfpack:
-    client: "magick"
+    client: 'client'
 
 services:
     App\PdfPack\Client\Magick\MagickClient:
