@@ -4,3 +4,4 @@ parameters:
     paths:
         - ./config/
         - ./src/
+        - ./tests/

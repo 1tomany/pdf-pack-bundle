@@ -10,6 +10,7 @@ $finder->in([
     './',
     './config/',
     './src/',
+    './tests/',
 ]);
 
 $finder->exclude([
