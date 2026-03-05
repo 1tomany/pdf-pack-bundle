@@ -13,6 +13,8 @@ class PdfPackBundle extends AbstractBundle
     protected string $extensionAlias = 'onetomany_pdfpack';
 
     /**
+     * @see Symfony\Component\Config\Definition\ConfigurableInterface
+     *
      * @param DefinitionConfigurator<'array'> $definition
      */
     public function configure(DefinitionConfigurator $definition): void
@@ -21,6 +23,8 @@ class PdfPackBundle extends AbstractBundle
     }
 
     /**
+     * @see Symfony\Component\DependencyInjection\Extension\ConfigurableExtensionInterface
+     *
      * @param array{
      *   client: 'mock'|'poppler',
      *   poppler_client: array{
