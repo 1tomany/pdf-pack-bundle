@@ -97,23 +97,5 @@ class PdfPackBundle extends AbstractBundle
                     ->arg('$pdfToPpmBinary', $config['poppler_client']['pdftoppm_binary'])
                     ->arg('$pdfToTextBinary', $config['poppler_client']['pdftotext_binary'])
         ;
-
-        /*
-        $container->import('../config/services.php');
-
-        if ($builder->hasDefinition(ClientFactory::class)) {
-            $builder
-                ->getDefinition(ClientFactory::class)
-                ->setArgument('$service', $config['client']);
-        }
-
-        if ($builder->hasDefinition(PopplerClient::class)) {
-            $builder
-                ->getDefinition(PopplerClient::class)
-                ->setArgument('$pdfInfoBinary', $config['poppler_client']['pdfinfo_binary'])
-                ->setArgument('$pdfToPpmBinary', $config['poppler_client']['pdftoppm_binary'])
-                ->setArgument('$pdfToTextBinary', $config['poppler_client']['pdftotext_binary']);
-        }
-        */
     }
 }
