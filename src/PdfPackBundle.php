@@ -3,6 +3,7 @@
 namespace OneToMany\PdfPackBundle;
 
 use OneToMany\PdfPack\Client\Poppler\PopplerClient;
+use OneToMany\PdfPack\Factory\ClientFactory;
 use Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -37,6 +38,12 @@ class PdfPackBundle extends AbstractBundle
     public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
     {
         $container->import('../config/services.php');
+
+        if ($builder->hasDefinition(ClientFactory::class)) {
+            $builder
+                ->getDefinition(ClientFactory::class)
+                ->setArgument('$service', $config['client']);
+        }
 
         if ($builder->hasDefinition(PopplerClient::class)) {
             $builder

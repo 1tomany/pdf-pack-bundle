@@ -31,7 +31,7 @@ return static function (ContainerConfigurator $container): void {
             // Clients
             ->set(ClientInterface::class)
                 ->factory([service(ClientFactory::class), 'create'])
-                ->arg('$id', 'poppler')
+                ->arg('$service', 'poppler')
             ->set(MockClient::class)
                 ->tag('onetomany.pdfpack.client', ['key' => 'mock'])
             ->set(PopplerClient::class)
