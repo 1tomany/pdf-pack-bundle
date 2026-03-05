@@ -1,4 +1,4 @@
-# PDF Extraction Bundle for PHP
+# PDF Extraction Bundle for Symfony
 
 This package wraps the `1tomany/pdf-pack` library into an easy to use Symfony bundle.
 
@@ -50,9 +50,10 @@ final readonly class UploadFileHandler
     public function handle(string $filePath): void
     {
         // Read PDF metadata like page count
-        $metadata = $this->readAction->act(
-            new ReadRequest($filePath)
-        );
+        $request = new ReadRequest($filePath);
+
+        // @see OneToMany\PdfPack\Response\ReadResponse
+        $response = $this->readAction->act($request);
 
         // Rasterize all pages of a PDF
         $request = new ExtractRequest($filePath)
