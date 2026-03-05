@@ -102,12 +102,12 @@ class MagickClient implements ClientInterface
 
 ```yaml
 onetomany_pdfpack:
-    client: 'client'
+    client: 'magick'
 
 services:
     App\PdfPack\Client\Magick\MagickClient:
         tags:
-            - { name: 1tomany.pdfpack.client, key: magick }
+            - { name: onetomany.pdfpack.client, key: magick }
 ```
 
 That's it! Again, without changing _any_ code, Symfony will automatically inject the correct extractor client for the action interfaces outlined above.

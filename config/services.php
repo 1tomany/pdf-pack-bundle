@@ -18,7 +18,7 @@ return static function (ContainerConfigurator $container): void {
         ->services()
             // Factories
             ->set(ClientFactory::class)
-                ->arg('$container', tagged_locator('1tomany.pdfpack.client', 'key'))
+                ->arg('$container', tagged_locator('onetomany.pdfpack.client', 'key'))
 
             // Actions
             ->set(ExtractAction::class)
@@ -33,8 +33,8 @@ return static function (ContainerConfigurator $container): void {
                 ->factory([service(ClientFactory::class), 'create'])
                 ->arg('$id', 'poppler')
             ->set(MockClient::class)
-                ->tag('1tomany.pdfpack.client', ['key' => 'mock'])
+                ->tag('onetomany.pdfpack.client', ['key' => 'mock'])
             ->set(PopplerClient::class)
-                ->tag('1tomany.pdfpack.client', ['key' => 'poppler'])
+                ->tag('onetomany.pdfpack.client', ['key' => 'poppler'])
     ;
 };
