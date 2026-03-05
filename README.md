@@ -4,6 +4,8 @@ This package wraps the `1tomany/pdf-pack` library into an easy to use Symfony bu
 
 ## Installation
 
+Install the bundle using Composer:
+
 ```shell
 composer require 1tomany/pdf-pack-bundle
 ```
