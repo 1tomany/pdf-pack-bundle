@@ -21,10 +21,6 @@ onetomany_pdfpack:
         pdfinfo_binary: "pdfinfo"
         pdftoppm_binary: "pdftppm"
         pdftotext_binary: "pdftotext"
-
-when@test:
-    onetomany_pdfpack:
-        client: "mock"
 ```
 
 ## Usage
