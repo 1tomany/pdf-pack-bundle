@@ -8,9 +8,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
 
-class OneToManyPdfPackBundle extends AbstractBundle
+class PdfPackBundle extends AbstractBundle
 {
-    protected string $extensionAlias = 'onetomany_pdf_pack';
+    protected string $extensionAlias = 'onetomany_pdfpack';
 
     /**
      * @param DefinitionConfigurator<'array'> $definition
@@ -30,9 +30,9 @@ class OneToManyPdfPackBundle extends AbstractBundle
      *   },
      * } $config
      */
-     public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
-     {
-         $container->import('../config/services.php');
+    public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
+    {
+        $container->import('../config/services.php');
 
         if ($builder->hasDefinition(PopplerClient::class)) {
             $builder
