@@ -8,6 +8,23 @@ This package wraps the `1tomany/pdf-pack` library into an easy to use Symfony bu
 composer require 1tomany/pdf-pack-bundle
 ```
 
+## Configuration
+
+Below is the complete configuration for this bundle. To customize it for your Symfony application, create a file named `onetomany_pdfpack.yaml` in `config/packages/` and make the necessary changes.
+
+```yaml
+onetomany_pdfpack:
+    client: "poppler"
+    poppler_client:
+        pdfinfo_binary: "pdfinfo"
+        pdftoppm_binary: "pdftppm"
+        pdftotext_binary: "pdftotext"
+
+when@test:
+    onetomany_pdfpack:
+        client: "mock"
+```
+
 ## Usage
 
 Symfony will autowire the necessary classes after the bundle is installed. Any constructor argument typed with `OneToMany\PdfPack\Contract\Action\ExtractActionInterface` or `OneToMany\PdfPack\Contract\Action\ReadActionInterface` will allow you to interact with the concrete extractor client via the `act()` method.
