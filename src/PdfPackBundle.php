@@ -27,7 +27,7 @@ class PdfPackBundle extends AbstractBundle
      * @see Symfony\Component\DependencyInjection\Extension\ConfigurableExtensionInterface
      *
      * @param array{
-     *   client: 'mock'|'poppler',
+     *   client: non-empty-string,
      *   poppler_client: array{
      *     pdfinfo_binary: non-empty-string,
      *     pdftoppm_binary: non-empty-string,

@@ -1,8 +1,8 @@
 # PDF Extraction Bundle for PHP
 
-[pdf-pack](https://github.com/1tomany/pdf-pack) is a simple PHP library that makes rasterizing pages and extracting text from PDFs for large language models easy.
+This package wraps the `1tomany/pdf-pack` library into an easy to use Symfony bundle.
 
-## Install the bundle
+## Installation
 
 ```shell
 composer require 1tomany/pdf-pack-bundle
@@ -62,12 +62,12 @@ final readonly class UploadFileHandler
 
 ### Testing
 
-If you wish to avoid interacting with an external process in your test environment, you can take advantage of the `MockClient` by simply setting the `onetomany_pdfpack.client` parameter to the value `'mock'` in your Symfony service configuration for the `test` environment.
+If you wish to avoid interacting with an external process in your test environment, you can take advantage of the `MockClient` by simply setting the `onetomany_pdfpack.client` parameter to the value `"mock"` in your Symfony service configuration for the `test` environment.
 
 ```yaml
 when@test:
     onetomany_pdfpack:
-        client: 'mock'
+        client: "mock"
 ```
 
 Without changing _any_ other code, Symfony will automatically inject the `MockClient` instead of the default `PopplerClient` for your tests.
@@ -86,7 +86,7 @@ use OneToMany\PdfPack\Contract\Request\ExtractRequest;
 use OneToMany\PdfPack\Contract\Request\ReadRequest;
 use OneToMany\PdfPack\Contract\Response\ReadResponse;
 
-class MagickClient implements ClientInterface
+final readonly class MagickClient implements ClientInterface
 {
     public function read(ReadRequest $request): ReadResponse
     {
@@ -102,7 +102,7 @@ class MagickClient implements ClientInterface
 
 ```yaml
 onetomany_pdfpack:
-    client: 'magick'
+    client: "magick"
 
 services:
     App\PdfPack\Client\Magick\MagickClient:

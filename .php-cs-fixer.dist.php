@@ -8,6 +8,7 @@ $finder = new Finder();
 
 $finder->in([
     './',
+    './config/',
     './src/',
 ]);
 
