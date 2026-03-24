@@ -2,10 +2,12 @@
 
 namespace OneToMany\PdfPackBundle;
 
+use OneToMany\PdfPack\Action\ConvertPdfAction;
 use OneToMany\PdfPack\Action\ExtractAction;
 use OneToMany\PdfPack\Action\ReadAction;
 use OneToMany\PdfPack\Client\Mock\MockClient;
 use OneToMany\PdfPack\Client\Poppler\PopplerClient;
+use OneToMany\PdfPack\Contract\Action\ConvertPdfActionInterface;
 use OneToMany\PdfPack\Contract\Action\ExtractActionInterface;
 use OneToMany\PdfPack\Contract\Action\ReadActionInterface;
 use OneToMany\PdfPack\Contract\Client\ClientInterface;
@@ -78,9 +80,9 @@ class PdfPackBundle extends AbstractBundle
                     ->arg('$container', tagged_locator('onetomany.pdfpack.client', 'vendor'))
 
                 // Actions
-                ->set(ExtractAction::class)
+                ->set(ConvertPdfAction::class)
                     ->arg('$client', service(ClientInterface::class))
-                    ->alias(ExtractActionInterface::class, service(ExtractAction::class))
+                    ->alias(ConvertPdfActionInterface::class, service(ConvertPdfAction::class))
                 ->set(ReadAction::class)
                     ->arg('$client', service(ClientInterface::class))
                     ->alias(ReadActionInterface::class, service(ReadAction::class))
