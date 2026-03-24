@@ -88,7 +88,7 @@ class PdfPackBundle extends AbstractBundle
                 // Clients
                 ->set(ClientInterface::class)
                     ->factory([service(ClientFactory::class), 'create'])
-                    ->arg('$service', $config['client'])
+                    ->arg('$vendor', $config['client'])
                 ->set(MockClient::class)
                     ->tag('onetomany.pdfpack.client', ['vendor' => 'mock'])
                 ->set(PopplerClient::class)
