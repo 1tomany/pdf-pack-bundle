@@ -21,7 +21,7 @@
     ],
     "require": {
         "php": ">=8.2",
-        "1tomany/pdf-pack": "^0.6.4",
+        "1tomany/pdf-pack": "^0.7.2",
         "symfony/config": "^7.2|^8.0",
         "symfony/dependency-injection": "^7.2|^8.0",
         "symfony/http-kernel": "^7.2|^8.0"
@@ -37,9 +37,9 @@
         }
     },
     "scripts": {
-        "fix": "./vendor/bin/php-cs-fixer fix",
-        "stan": "./vendor/bin/phpstan",
-        "test": "./vendor/bin/phpunit"
+        "fix": "php-cs-fixer fix",
+        "stan": "phpstan",
+        "test": "phpunit"
     },
     "authors": [
         {
