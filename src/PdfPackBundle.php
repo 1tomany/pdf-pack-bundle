@@ -75,7 +75,7 @@ class PdfPackBundle extends AbstractBundle
             ->services()
                 // Factories
                 ->set(ClientFactory::class)
-                    ->arg('$container', tagged_locator('onetomany.pdfpack.client', 'key'))
+                    ->arg('$container', tagged_locator('onetomany.pdfpack.client', 'vendor'))
 
                 // Actions
                 ->set(ExtractAction::class)
@@ -90,9 +90,9 @@ class PdfPackBundle extends AbstractBundle
                     ->factory([service(ClientFactory::class), 'create'])
                     ->arg('$service', $config['client'])
                 ->set(MockClient::class)
-                    ->tag('onetomany.pdfpack.client', ['key' => 'mock'])
+                    ->tag('onetomany.pdfpack.client', ['vendor' => 'mock'])
                 ->set(PopplerClient::class)
-                    ->tag('onetomany.pdfpack.client', ['key' => 'poppler'])
+                    ->tag('onetomany.pdfpack.client', ['vendor' => 'poppler'])
                     ->arg('$pdfInfoBinary', $config['poppler_client']['pdfinfo_binary'])
                     ->arg('$pdfToPpmBinary', $config['poppler_client']['pdftoppm_binary'])
                     ->arg('$pdfToTextBinary', $config['poppler_client']['pdftotext_binary'])
