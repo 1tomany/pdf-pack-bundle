@@ -2,12 +2,12 @@
 
 namespace OneToMany\PdfPackBundle;
 
-use OneToMany\PdfPack\Action\ConvertPdfAction;
-use OneToMany\PdfPack\Action\ReadPdfAction;
+use OneToMany\PdfPack\Action\ConvertAction;
+use OneToMany\PdfPack\Action\ReadAction;
 use OneToMany\PdfPack\Client\Mock\MockClient;
 use OneToMany\PdfPack\Client\Poppler\PopplerClient;
-use OneToMany\PdfPack\Contract\Action\ConvertPdfActionInterface;
-use OneToMany\PdfPack\Contract\Action\ReadPdfActionInterface;
+use OneToMany\PdfPack\Contract\Action\ConvertActionInterface;
+use OneToMany\PdfPack\Contract\Action\ReadActionInterface;
 use OneToMany\PdfPack\Contract\Client\ClientInterface;
 use OneToMany\PdfPack\Factory\ClientFactory;
 use Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
@@ -27,6 +27,7 @@ class PdfPackBundle extends AbstractBundle
      *
      * @param DefinitionConfigurator<'array'> $definition
      */
+    #[\Override]
     public function configure(DefinitionConfigurator $definition): void
     {
         $definition
@@ -69,6 +70,7 @@ class PdfPackBundle extends AbstractBundle
      *   },
      * } $config
      */
+    #[\Override]
     public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
     {
         $container
@@ -78,12 +80,12 @@ class PdfPackBundle extends AbstractBundle
                     ->arg('$container', tagged_locator('onetomany.pdfpack.client', 'vendor'))
 
                 // Actions
-                ->set(ConvertPdfAction::class)
+                ->set(ConvertAction::class)
                     ->arg('$client', service(ClientInterface::class))
-                    ->alias(ConvertPdfActionInterface::class, service(ConvertPdfAction::class))
-                ->set(ReadPdfAction::class)
+                    ->alias(ConvertActionInterface::class, service(ConvertAction::class))
+                ->set(ReadAction::class)
                     ->arg('$client', service(ClientInterface::class))
-                    ->alias(ReadPdfActionInterface::class, service(ReadPdfAction::class))
+                    ->alias(ReadActionInterface::class, service(ReadAction::class))
 
                 // Clients
                 ->set(ClientInterface::class)
