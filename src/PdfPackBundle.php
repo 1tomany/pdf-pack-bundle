@@ -27,6 +27,7 @@ class PdfPackBundle extends AbstractBundle
      *
      * @param DefinitionConfigurator<'array'> $definition
      */
+    #[\Override]
     public function configure(DefinitionConfigurator $definition): void
     {
         $definition
@@ -69,6 +70,7 @@ class PdfPackBundle extends AbstractBundle
      *   },
      * } $config
      */
+    #[\Override]
     public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
     {
         $container
