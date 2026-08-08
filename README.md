@@ -25,23 +25,23 @@ onetomany_pdfpack:
 
 ## Usage
 
-Symfony will autowire the necessary classes after the bundle is installed. Any constructor argument typed with `OneToMany\PdfPack\Contract\Action\ExtractActionInterface` or `OneToMany\PdfPack\Contract\Action\ReadActionInterface` will allow you to interact with the concrete extractor client via the `act()` method.
+Symfony will autowire the necessary classes after the bundle is installed. Any constructor argument typed with `OneToMany\PdfPack\Contract\Action\ConvertActionInterface` or `OneToMany\PdfPack\Contract\Action\ReadActionInterface` will allow you to interact with the concrete extractor client via the `act()` method.
 
 ```php
 <?php
 
 namespace App\File\Action\Handler;
 
-use OneToMany\PdfPack\Contract\Action\ExtractActionInterface;
+use OneToMany\PdfPack\Contract\Action\ConvertActionInterface;
 use OneToMany\PdfPack\Contract\Action\ReadActionInterface;
-use OneToMany\PdfPack\Request\ExtractRequest;
-use OneToMany\PdfPack\Request\ReadRequest;
+use OneToMany\PdfPack\Transfer\Request\ConvertRequest;
+use OneToMany\PdfPack\Transfer\Request\ReadRequest;
 
 final readonly class UploadFileHandler
 {
     public function __construct(
         private ReadActionInterface $readAction,
-        private ExtractActionInterface $extractAction,
+        private ConvertActionInterface $convertAction,
     ) {
     }
 
@@ -50,27 +50,27 @@ final readonly class UploadFileHandler
         // Read PDF metadata like page count
         $request = new ReadRequest($filePath);
 
-        // @see OneToMany\PdfPack\Response\ReadResponse
+        // @see OneToMany\PdfPack\Transfer\Response\ReadResponse
         $response = $this->readAction->act($request);
 
         // Rasterize all pages of a PDF
-        $request = new ExtractRequest($filePath)
+        $request = new ConvertRequest($filePath)
             ->fromPage(1) // First page to extract
             ->toPage(null) // Last page to extract, NULL for all pages
             ->asPngOutput() // Generate PNG images
             ->atResolution(150); // At 150 DPI
 
-        // @see OneToMany\PdfPack\Response\ExtractResponse
-        foreach ($this->extractAction->act($request) as $page) {
-            // $page->getData() or $page->toDataUri()
+        // @see OneToMany\PdfPack\Transfer\Response\ConvertResponse
+        foreach ($this->convertAction->act($request) as $response) {
+            // $response->getRecord()->getData()
         }
 
         // Extract text from pages 2 through 8
-        $request = new ExtractRequest($filePath, 2, 8)->asTextOutput();
+        $request = new ConvertRequest($filePath, 2, 8)->asTextOutput();
 
-        // @see OneToMany\PdfPack\Response\ExtractResponse
-        foreach ($this->extractAction->act($request) as $page) {
-            // $page->getData() or $page->toDataUri()
+        // @see OneToMany\PdfPack\Transfer\Response\ConvertResponse
+        foreach ($this->convertAction->act($request) as $response) {
+            // $response->getRecord()->getData()
         }
     }
 }
@@ -98,18 +98,26 @@ Don't want to use Poppler? No problem! Create your own extractor class that impl
 namespace App\PdfPack\Client\Magick;
 
 use OneToMany\PdfPack\Contract\Client\ClientInterface;
-use OneToMany\PdfPack\Contract\Request\ExtractRequest;
+use OneToMany\PdfPack\Contract\Request\ConvertRequest;
 use OneToMany\PdfPack\Contract\Request\ReadRequest;
 use OneToMany\PdfPack\Contract\Response\ReadResponse;
 
 final readonly class MagickClient implements ClientInterface
 {
+    /**
+     * @see OneToMany\PdfPack\Contract\Client\ClientInterface
+     */
+    #[\Override]
     public function read(ReadRequest $request): ReadResponse
     {
         // Add your implementation here
     }
 
-    public function extract(ExtractRequest $request): \Generator
+    /**
+     * @see OneToMany\PdfPack\Contract\Client\ClientInterface
+     */
+    #[\Override]
+    public function convert(ConvertRequest $request): \Generator
     {
         // Add your implementation here
     }
